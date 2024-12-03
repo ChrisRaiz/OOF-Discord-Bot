@@ -162,4 +162,4 @@ cython_debug/
 *.db
 *.db-journal
 __pycache__
-lib/bot/token.0
+library/bot/token.0
