@@ -80,7 +80,7 @@ class Mod(Cog):
 
           await self.log_channel.send(embed=embed)
 
-  @command(name="ban")
+  @command(name="ban", description="Ban members from the server")
   @has_permissions(ban_members=True)
   @bot_has_permissions(ban_members=True)
   async def ban_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
@@ -119,7 +119,6 @@ class Mod(Cog):
 
   async def mute_members(self, message, targets, minutes, reason):
     unmutes = []
-
     for target in targets:
       if self.mute_role not in target.roles:
         if message.guild.me.top_role.position > target.top_role.position:
@@ -165,8 +164,8 @@ class Mod(Cog):
       await ctx.send("Action complete.")
 
       if len(unmutes):
-        await asyncio.sleep(minutes)
-        await self.unmute_members(ctx, targets)
+        await asyncio.sleep(minutes*60)
+        await self.unmute_members(ctx.message.guild, targets)
 
   @mute_command.error
   async def mute_command_error(self, ctx, exc):
@@ -197,7 +196,7 @@ class Mod(Cog):
 
         await self.log_channel.send(embed=embed)
 
-  @command(name="unmute")
+  @command(name="unmute", description="Unmute a member")
   @has_permissions(manage_guild=True, manage_roles=True)
   @bot_has_permissions(manage_roles=True)
   async def unmute_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
@@ -206,13 +205,14 @@ class Mod(Cog):
 
     else:
       await self.unmute_members(ctx.guild, targets, reason=reason)
+      await ctx.send("Action complete.")
 
   @unmute_command.error
   async def unmute_members_error(self, ctx, exc):
     if isinstance(exc, CheckFailure):
       await ctx.send("Insufficient permissions to perform that task.")  
 
-  @command(name="addprofanity", aliases=["ap"])
+  @command(name="addprofanity", aliases=["ap"], description="Add terms to the profanity filter")
   @has_permissions(manage_guild=True)
   async def add_profanity(self, ctx, *words):
     with open("./data/profanity.txt", "a", encoding="utf-8") as f:
@@ -226,7 +226,7 @@ class Mod(Cog):
     if isinstance(exc, CheckFailure):
       await ctx.send("Insufficient permissions to perform that task.")  
 
-  @command(name="delprofanity", aliases=["dp"])
+  @command(name="delprofanity", aliases=["dp"], description="Remove terms from the profanity filter")
   @has_permissions(manage_guild=True)
   async def remove_profanity(self, ctx, *words):
     with open("./data/profanity.txt", "r", encoding="utf-8") as f:
