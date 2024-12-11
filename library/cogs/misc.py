@@ -8,7 +8,7 @@ class Misc(Cog):
   def __init__(self, bot):
     self.bot = bot
 
-  @command(name="prefix", description="Change command prefix.")
+  @command(name="prefix", description="Change command prefix")
   @has_permissions(manage_guild=True)
   async def change_prefix(self, ctx, new: str):
     if len(new) > 5:
