@@ -31,22 +31,22 @@ class Reactions(Cog):
 
       inactive_polls = []
 
-      for question, ids in self.polls.items():
-        print(f'question: {question}\nids: {ids}')
-        channel = self.bot.get_channel(ids[1])
-        message = await channel.fetch_message(ids[0])
+      if len(self.polls) > 0:
+        for question, ids in self.polls.items():
+          channel = self.bot.get_channel(ids[1])
+          message = await channel.fetch_message(ids[0])
 
-        if message.poll.is_finalized():
-          inactive_polls.append(question)
-        else:
-          self.bot.scheduler.add_job(self.poll_ended, "date", run_date=message.poll.expires_at,
-                                    args=[question])
+          if message.poll.is_finalized():
+            inactive_polls.append(question)
+          else:
+            self.bot.scheduler.add_job(self.poll_ended, "date", run_date=message.poll.expires_at,
+                                      args=[question])
 
-      for question in inactive_polls:
-        del self.polls[question]
-        db.execute("DELETE FROM polls WHERE Question = ?", question)
+        for question in inactive_polls:
+          del self.polls[question]
+          db.execute("DELETE FROM polls WHERE Question = ?", question)
 
-  @command(name="createpoll", aliases=["mkpoll"], description="Create a new poll.")
+  @command(name="createpoll", aliases=["mkpoll"], description="Create a new poll")
   @has_permissions(manage_guild=True)
   async def create_poll(self, ctx, question: str, hours: int, multiple: str, *answers):
       if question.lower() in self.polls.keys():
@@ -95,7 +95,7 @@ class Reactions(Cog):
 
       await ctx.send(f"The *{question}* poll has been ended. The final results will be printed shortly.", delete_after=10)
  
-  @command(name="activepolls", description="End an active poll")
+  @command(name="activepolls", description="View all active polls")
   @has_permissions(manage_guild=True)
   async def active_polls(self, ctx):
     await ctx.send(self.polls)
