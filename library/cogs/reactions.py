@@ -46,7 +46,7 @@ class Reactions(Cog):
           del self.polls[question]
           db.execute("DELETE FROM polls WHERE Question = ?", question)
 
-  @command(name="createpoll", aliases=["mkpoll"], description="Create a new poll")
+  @command(name="createpoll", aliases=["mkpoll"], description="Create a new poll.")
   @has_permissions(manage_guild=True)
   async def create_poll(self, ctx, question: str, hours: int, multiple: str, *answers):
       if question.lower() in self.polls.keys():
@@ -78,7 +78,7 @@ class Reactions(Cog):
     del self.polls[question]
     db.execute("DELETE FROM polls WHERE Question = ?", question.lower())
 
-  @command(name="endpoll", description="End an active poll")
+  @command(name="endpoll", description="End an active poll.")
   @has_permissions(manage_guild=True)
   async def end_poll(self, ctx, question):
     message_id, channel_id = self.polls[question.lower()] or None
@@ -95,7 +95,7 @@ class Reactions(Cog):
 
       await ctx.send(f"The *{question}* poll has been ended. The final results will be printed shortly.", delete_after=10)
  
-  @command(name="activepolls", description="View all active polls")
+  @command(name="activepolls", description="View all active polls.")
   @has_permissions(manage_guild=True)
   async def active_polls(self, ctx):
     await ctx.send(self.polls)

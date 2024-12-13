@@ -37,13 +37,13 @@ class Meta(Cog):
       name=_name, type=getattr(ActivityType, _type, ActivityType.playing)
     ))
 
-  @command(name="setactivity", description="Set the bot's activity status")
+  @command(name="setactivity", description="Set the bot's activity status.")
   @has_permissions(manage_guild=True)
   async def set_activity_message(self, ctx, *, activity: str):
     self.message = activity
     await self.set()
 
-  @command(name="ping", description="Get DWSP latency and response time")
+  @command(name="ping", description="Get DWSP latency and response time.")
   async def ping(self, ctx):
     start = time()
     message = await ctx.send(f"DWSP latency: {self.bot.latency * 1000:,.0f} ms")
@@ -81,7 +81,7 @@ class Meta(Cog):
 
     await ctx.send(embed=embed)
 
-  @command(name="shutdown", description="Shutdown the discord bot")
+  @command(name="shutdown", description="Shutdown the discord bot.")
   async def shutdown(self, ctx):
     await ctx.send("Shutting down...")
 

@@ -43,7 +43,7 @@ class Mod(Cog):
         await self.log_channel.send(embed=embed)
 
 
-  @command(name="kick", description="Kick members out of the server")
+  @command(name="kick", description="Kick members out of the server.")
   @has_permissions(kick_members=True)
   @bot_has_permissions(kick_members=True)
   async def kick_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
@@ -80,7 +80,7 @@ class Mod(Cog):
 
           await self.log_channel.send(embed=embed)
 
-  @command(name="ban", description="Ban members from the server")
+  @command(name="ban", description="Ban members from the server.")
   @has_permissions(ban_members=True)
   @bot_has_permissions(ban_members=True)
   async def ban_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
@@ -96,7 +96,7 @@ class Mod(Cog):
     if isinstance(exc, CheckFailure):
       await ctx.send("Insufficient permissions to perform that task.")
 
-  @command(name="clear", aliases=["purge"], description="Delete 'x' amount of messages in a channel")
+  @command(name="clear", aliases=["purge"], description="Delete 'x' amount of messages in a channel.")
   @has_permissions(manage_messages=True)
   @bot_has_permissions(manage_messages=True)
   async def clear_messages(self, ctx, targets: Greedy[Member], limit: Optional[int] = 10):
@@ -151,7 +151,7 @@ class Mod(Cog):
 
     return unmutes
 
-  @command(name="mute", description="Mute a member")
+  @command(name="mute", description="Mute a member.")
   @has_permissions(manage_guild=True, manage_roles=True)
   @bot_has_permissions(manage_roles=True)
   async def mute_command(self, ctx, targets: Greedy[Member], minutes: Optional[int], *,
@@ -196,7 +196,7 @@ class Mod(Cog):
 
         await self.log_channel.send(embed=embed)
 
-  @command(name="unmute", description="Unmute a member")
+  @command(name="unmute", description="Unmute a member.")
   @has_permissions(manage_guild=True, manage_roles=True)
   @bot_has_permissions(manage_roles=True)
   async def unmute_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
@@ -212,7 +212,7 @@ class Mod(Cog):
     if isinstance(exc, CheckFailure):
       await ctx.send("Insufficient permissions to perform that task.")  
 
-  @command(name="addprofanity", aliases=["ap"], description="Add terms to the profanity filter")
+  @command(name="addprofanity", aliases=["ap"], description="Add terms to the profanity filter.")
   @has_permissions(manage_guild=True)
   async def add_profanity(self, ctx, *words):
     with open("./data/profanity.txt", "a", encoding="utf-8") as f:
@@ -226,7 +226,7 @@ class Mod(Cog):
     if isinstance(exc, CheckFailure):
       await ctx.send("Insufficient permissions to perform that task.")  
 
-  @command(name="delprofanity", aliases=["dp"], description="Remove terms from the profanity filter")
+  @command(name="delprofanity", aliases=["dp"], description="Remove terms from the profanity filter.")
   @has_permissions(manage_guild=True)
   async def remove_profanity(self, ctx, *words):
     with open("./data/profanity.txt", "r", encoding="utf-8") as f:

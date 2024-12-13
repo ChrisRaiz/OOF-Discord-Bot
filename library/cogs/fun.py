@@ -78,7 +78,7 @@ class Fun(Cog):
       await ctx.send("No facts are available for that animal.")
 
         
-  @command(name="gamble", description="Hosts a gambling session")
+  @command(name="gamble", description="Hosts a gambling session.")
   async def host_gamble(self, ctx, rounds: int, increments: int, start_time: Optional[int] = 30):
     
     if self.gamble_channel is not None:
